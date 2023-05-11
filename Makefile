@@ -1,3 +1,4 @@
+# Mandatory enviroment variables
 _CONTAINER_NAME_=$(CONTAINER_NAME)
 _GIT_FILEPATH_=$(GIT_FILEPATH)
 _GIT_PROJECT_=$(GIT_PROJECT)
