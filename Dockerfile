@@ -3,6 +3,7 @@ RUN apt-get update \
     && apt-get install -y \
         git \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install pandas==1.3.5 openpyxl==3.0.9
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 WORKDIR /src
 COPY /src .
