@@ -13,3 +13,5 @@ This tree enviroment variables should be fullfill:
 * GIT_PROJECT=my-project
 
 **Pay atention** GIT_FILEPATH have a slash on start and end of filepath, while GIT_PROJECT its just the folder name without slashes.
+
+After set all this variables you can run a `make` command on bash to start the pipeline image -> container -> run python script
