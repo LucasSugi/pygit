@@ -1,14 +1,14 @@
-CONTAINER_NAME=""
-GIT_FILEPATH=""
-GIT_PROJECT=""
+_CONTAINER_NAME_=$(CONTAINER_NAME)
+_GIT_FILEPATH_=$(GIT_FILEPATH)
+_GIT_PROJECT_=$(GIT_PROJECT)
 
 all: build run move
 
 build:
-	docker build -t $(CONTAINER_NAME):latest .
+	docker build -t $(_CONTAINER_NAME_):latest .
 
 run:
-	docker run --rm -v $(GIT_FILEPATH)$(GIT_PROJECT)/:/src/$(GIT_PROJECT) $(CONTAINER_NAME) python extract_git_deletion.py --git-path /src/$(GIT_PROJECT)/
+	docker run --rm -v $(_GIT_FILEPATH_)$(_GIT_PROJECT_)/:/src/$(_GIT_PROJECT_) $(_CONTAINER_NAME_) python extract_git_deletion.py --git-path /src/$(_GIT_PROJECT_)/
 
 move:
-	mv $(GIT_FILEPATH)$(GIT_PROJECT)/git_deletion.csv .
+	mv $(_GIT_FILEPATH_)$(_GIT_PROJECT_)/git_deletion.csv .
