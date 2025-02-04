@@ -1,11 +1,6 @@
-# OS
 from os import popen
-
-# Data Manipulation
 from pandas import DataFrame
 from re import search
-
-# Parse args
 from optparse import OptionParser
 
 # Instantiate object
@@ -21,11 +16,12 @@ args, _ = parser.parse_args()
 args = vars(args)
 
 # Validate args
-if(args.get("git_path") is None):
-    raise Exception("`git_path` its mandatory")
+if args.get("git_path") is None:
+    raise KeyError("`git_path` its mandatory")
 
 # Git command to generate the log of commits that delete some file
-git_cmd = "git -C {} log --diff-filter=D --summary".format(args["git_path"])
+git_path = args["git_path"]
+git_cmd = f"git -C {git_path} log --diff-filter=D --summary"
 
 # Run command of git
 raw_data = popen(git_cmd).read()
@@ -50,11 +46,11 @@ for i in range(len(commit_index)-1):
     # Store data
     try:
         curated_data.append({
-            "commit": mr_info[0]
-            , "author": mr_info[1]
-            , "date": mr_info[2]
-            , "title": mr_info[3]
-            , "scripts": mr_info[4:]
+            "commit": mr_info[0],
+            "author": mr_info[1],
+            "date": mr_info[2],
+            "title": mr_info[3],
+            "scripts": mr_info[4:],
         })
     except:
         print(mr_info)
@@ -77,8 +73,23 @@ curated_data_df.loc[:, "email"] = curated_data_df.loc[:, "author"].map(lambda x:
 curated_data_df.loc[:, "author"] = curated_data_df.loc[:, "author"].map(lambda x: x[:x.index("<")-1])
 
 # Fix columns position
-select_columns = ["commit", "scripts", "title", "author", "email", "date"]
+select_columns = [
+    "commit",
+    "scripts",
+    "title",
+    "author",
+    "email",
+    "date",
+]
 curated_data_df = curated_data_df.loc[:, select_columns]
 
 # Save data
-curated_data_df.to_csv("{}git_deletion.csv".format(args["git_path"]), index=False, header=True, sep = ",")
+(
+    curated_data_df
+    .to_csv(
+        f"{git_path}git_deletion.csv",
+        index=False,
+        header=True,
+        sep=",",
+    )
+)
