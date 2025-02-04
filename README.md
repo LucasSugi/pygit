@@ -8,6 +8,6 @@ Example, supose you have a git project on filepath `/Users/lucas.sugi/Desktop/my
 
 * **GIT_FULL_PATH=/Users/lucas.sugi/Desktop/my-project**
 
-**Pay atention** **GIT_FULL_PATH** should not have a slash on the end of string!
+❗❗❗ **GIT_FULL_PATH** should not have a slash on the end of string!
 
 After set this variablee you can run a `make` command on bash to start the pipeline image -> container -> run python script
